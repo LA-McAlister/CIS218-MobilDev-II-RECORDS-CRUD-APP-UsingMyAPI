@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.android.volley.Request
@@ -28,6 +29,7 @@ class ShowRecord : BaseActivity() {
         val txtDateCreated: TextView = findViewById(R.id.txtDateCreated)
         val recordImage: ImageView = findViewById(R.id.recordImage)
         val txtURL: TextView = findViewById(R.id.txtURL)
+
 
         record = recordsList[ currentRecord ]
 
@@ -62,6 +64,9 @@ class ShowRecord : BaseActivity() {
     }
 
     fun deleteRecordOnClick ( v: View){
+        val buttonDelete: Button = findViewById(R.id.btnDelete)
+        val buttonEdit: Button = findViewById(R.id.btnEdit)
+
         val builder = android.app.AlertDialog.Builder(this)
         builder.setMessage("Are you sure you want to delete this record?")
             .setCancelable(false)
@@ -69,6 +74,9 @@ class ShowRecord : BaseActivity() {
                 toastIt("Record: ${record.recordID} is deleted.")
                 //delete the element from the list
                 recordsList.removeAt(currentRecord)
+                buttonDelete.isEnabled = false
+                buttonEdit.isEnabled = false
+
 
                // TODO: save to database:
                 //start data base           `
@@ -87,14 +95,17 @@ class ShowRecord : BaseActivity() {
                         Log.i("CRUDapi", "It no worky - ${it.message}")
                     })
 
+
+
                 //Add the request to the RequestQueue.
                 jsonObjectRequest.setShouldCache(false) //this forces information retrieval from the network again and not the volley cache data file in the project.
                 queue.add(jsonObjectRequest)
                 //End save to database
 
-                //Go to another screen - Show all activity
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+//                //Go to another screen - Show all activity
+//                val intent = Intent(this, MainActivity::class.java)
+//                startActivity(intent)
+
             }
             .setNegativeButton("No"){ dialog, which ->
                 toastIt("Delete canceled.")

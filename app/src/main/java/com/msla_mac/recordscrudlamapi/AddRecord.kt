@@ -85,10 +85,7 @@ class AddRecord : BaseActivity() {
         queue.add(request)
         //End save to database
 
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-
-            toastIt("Successfully Added")
+        toastIt("Successfully Added")
 
     }
 

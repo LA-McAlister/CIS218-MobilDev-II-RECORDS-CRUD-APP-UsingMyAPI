@@ -16,3 +16,4 @@ open class BaseActivity() : AppCompatActivity() {
         ).show()
     }
 }
+///https://via.placeholder.com/50x50.png/00dd77?text=non
